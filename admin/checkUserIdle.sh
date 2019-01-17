@@ -52,6 +52,9 @@ for i in "${processList[@]}";
 do 
    thisPid=`/bin/echo "$i" | /usr/bin/awk '{print $1}'`
    thisCPUUsage=`/usr/bin/top -b -n 1 -p $thisPid | /bin/grep $thisPid | /usr/bin/awk '{print $9}'`
+   if [ -z "$thisCPUUsage" ]; then
+      thisCPUUsage=0.0
+   fi
    totalCPU=$(echo "$totalCPU + $thisCPUUsage"|/usr/bin/bc)
 done
 
